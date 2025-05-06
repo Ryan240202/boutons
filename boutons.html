@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vérificateur de Combinaisons</title>
+  <style>
+    body {
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      text-align: center;
+      padding: 50px;
+      background: linear-gradient(to top, #87ceeb, #fdf6e3);
+      background-image: url('https://www.transparenttextures.com/patterns/sandpaper.png');
+      background-repeat: repeat;
+    }
+    h1 {
+      color: #ff8c00;
+      text-shadow: 2px 2px #fffacd;
+    }
+    input[type="text"] {
+      padding: 10px;
+      border: 2px solid #f4a460;
+      border-radius: 10px;
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+    button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 10px;
+      background-color: #ffcc00;
+      font-weight: bold;
+      font-size: 16px;
+      cursor: pointer;
+      box-shadow: 2px 2px #deb887;
+      margin-top: 10px;
+    }
+    .color-button {
+      width: 60px;
+      height: 60px;
+      margin: 10px;
+      border: 2px solid #fff;
+      border-radius: 50%;
+      cursor: pointer;
+      box-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+    .red { background-color: red; }
+    .blue { background-color: blue; }
+    .green { background-color: green; }
+    .yellow { background-color: yellow; }
+    .combination {
+      margin-top: 20px;
+      min-height: 40px;
+      background-color: rgba(255, 255, 255, 0.7);
+      padding: 10px;
+      border-radius: 10px;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+    }
+    .message {
+      margin-top: 20px;
+      font-weight: bold;
+      color: #008b8b;
+      font-size: 18px;
+    }
+    #color-buttons {
+      display: none;
+      margin-top: 20px;
+    }
+    .mini-ball {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: 1px solid #999;
+    }
+    .mini-red { background-color: red; }
+    .mini-blue { background-color: blue; }
+    .mini-green { background-color: green; }
+    .mini-yellow { background-color: yellow; }
+  </style>
+</head>
+<body>
+  <h1>🔆 Jeu de Combinaisons de Couleurs - Ambiance Plage 🏖️</h1>
+
+  <input type="text" id="keyInput" placeholder="Entrez une clé (1-10)">
+  <br>
+  <button onclick="validateKey()">Valider la clé</button>
+
+  <div id="color-buttons">
+    <div>
+      <button class="color-button red" onclick="addColor('R')"></button>
+      <button class="color-button blue" onclick="addColor('B')"></button>
+      <button class="color-button green" onclick="addColor('G')"></button>
+      <button class="color-button yellow" onclick="addColor('Y')"></button>
+    </div>
+    <div class="combination" id="current-combination"></div>
+    <br>
+    <button onclick="checkCombination()">Vérifier</button>
+  </div>
+
+  <div class="message" id="message"></div>
+
+  <script>
+    let userCombination = "";
+    let currentKey = null;
+
+    const combinations = {
+      1: "RBGYGY",
+      2: "BBGGRR",
+      3: "YYBBRR",
+      4: "GRYBRG",
+      5: "YGYGYG",
+      6: "RRGGBB",
+      7: "BYGRBY",
+      8: "GYGYRR",
+      9: "BBYYGG",
+      10: "RRBBYY"
+    };
+
+    function validateKey() {
+      const key = document.getElementById("keyInput").value;
+      if (combinations[key]) {
+        currentKey = key;
+        document.getElementById("color-buttons").style.display = "block";
+        document.getElementById("message").textContent = "Clé acceptée. Composez votre combinaison.";
+        userCombination = "";
+        document.getElementById("current-combination").innerHTML = "";
+      } else {
+        document.getElementById("message").textContent = "Clé invalide. Veuillez entrer un nombre de 1 à 10.";
+      }
+    }
+
+    function addColor(colorCode) {
+      if (userCombination.length < 6) {
+        userCombination += colorCode;
+        const div = document.createElement('div');
+        div.classList.add('mini-ball');
+        if (colorCode === 'R') div.classList.add('mini-red');
+        if (colorCode === 'B') div.classList.add('mini-blue');
+        if (colorCode === 'G') div.classList.add('mini-green');
+        if (colorCode === 'Y') div.classList.add('mini-yellow');
+        document.getElementById("current-combination").appendChild(div);
+      }
+    }
+
+    function checkCombination() {
+      const expected = combinations[currentKey];
+
+      if (userCombination === expected) {
+        document.getElementById("message").textContent = "🏆 Bravo ! Combinaison correcte !";
+      } else {
+        document.getElementById("message").textContent = "❌ Désolé, combinaison incorrecte.";
+      }
+    }
+  </script>
+</body>
+</html>
