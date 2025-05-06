@@ -83,9 +83,9 @@
 <body>
   <h1>🔆 Jeu de Combinaisons de Couleurs - Ambiance Plage 🏖️</h1>
 
-  <input type="text" id="keyInput" placeholder="Entrez une clé (1-10)">
+  <input type="text" id="keyInput" placeholder="Entrez le nom de la plage">
   <br>
-  <button onclick="validateKey()">Valider la clé</button>
+  <button onclick="validateKey()">Valider la plage</button>
 
   <div id="color-buttons">
     <div>
@@ -106,28 +106,28 @@
     let currentKey = null;
 
     const combinations = {
-      1: "RBGYGY",
-      2: "BBGGRR",
-      3: "YYBBRR",
-      4: "GRYBRG",
-      5: "YGYGYG",
-      6: "RRGGBB",
-      7: "BYGRBY",
-      8: "GYGYRR",
-      9: "BBYYGG",
-      10: "RRBBYY"
+      "plage des cocos fous": "RBGYGY",
+      "baie des crabes rieurs": "BBGGRR",
+      "anse du sable qui pique": "YYBBRR",
+      "plage des mouettes bavardes": "GRYBRG",
+      "crique des coquillages chanteurs": "YGYGYG",
+      "plage du maillot perdu": "RRGGBB",
+      "baie des vagues capricieuses": "BYGRBY",
+      "anse des étoiles de mer dansantes": "GYGYRR",
+      "plage des palmiers farceurs": "BBYYGG",
+      "crique du soleil farceur": "RRBBYY"
     };
 
     function validateKey() {
-      const key = document.getElementById("keyInput").value;
+      const key = document.getElementById("keyInput").value.toLowerCase().trim();
       if (combinations[key]) {
         currentKey = key;
         document.getElementById("color-buttons").style.display = "block";
-        document.getElementById("message").textContent = "Clé acceptée. Composez votre combinaison.";
+        document.getElementById("message").textContent = "Plage acceptée. Composez votre combinaison.";
         userCombination = "";
         document.getElementById("current-combination").innerHTML = "";
       } else {
-        document.getElementById("message").textContent = "Clé invalide. Veuillez entrer un nombre de 1 à 10.";
+        document.getElementById("message").textContent = "Plage invalide. Veuillez entrer un nom de plage correct.";
       }
     }
 
